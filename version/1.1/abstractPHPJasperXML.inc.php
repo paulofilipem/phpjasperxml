@@ -8,7 +8,7 @@ class abstractPHPJasperXML
         protected $pdflib;
         protected $lang;
         public $debugsql=false;
-        protected $myconn;       
+        protected $myconn;        
         // protected $detail_yposition = 0;
         protected $global_pointer;
         protected $arraysubdataset;
@@ -2591,6 +2591,13 @@ protected function convertDigit($digit=0)
             return number_format($txt,1,".",",");
         elseif($pattern=="###0.00" || $pattern=="###0.00;-###0.00")
             return number_format($txt,2,".","");
+        elseif($pattern=="¤#,##0.00" || $pattern=="¤#,##0.00;¤-#,##0.00"){
+            $fmt = new \NumberFormatter(\Locale::getDefault(), \NumberFormatter::CURRENCY);
+            $fmt->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, 2); 
+            $fmt->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, 2); 
+            $symbol = $fmt->getSymbol(\NumberFormatter::INTL_CURRENCY_SYMBOL);
+            return $fmt->formatCurrency($txt, $symbol);
+        }
         elseif($pattern=="#,##0.00" || $pattern=="#,##0.00;-#,##0.00")
             return number_format($txt,2,".",",");
         elseif($pattern=="###0.00;(###0.00)")
@@ -2732,9 +2739,9 @@ protected function convertDigit($digit=0)
             else if(preg_match("/^(^\d+\.?\d+|\-\d+\.?\d*|^0+$)$/", $value))
             {
               return true;
-            }
-            else
-            {
+          }
+          else
+          {
               return false;
             }
               // echo "isNumber $value = true<br/>";
