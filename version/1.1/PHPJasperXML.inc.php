@@ -229,12 +229,32 @@ class PHPJasperXML extends abstractPHPJasperXML{
         
         if($this->debugsql==true) {
             
-            echo "<textarea cols='100' rows='40'>$this->sql</textarea>";
+            $data = "<h2> JasperReport Developer - debug</h2>";
+            $data .= "<h3> System Parameters</h3>";                   
+            $data .= '<textarea cols="100" rows="20" readonly>';
+            $data .= print_r($this->arrayParameter,1);
+            $data .= '</textarea>';
+            $data .= "<h3> JasperReport SQL </h3>";
+            echo $data;
+            
+            $data = "<textarea cols='100' rows='40'>$this->sql</textarea>";
+            $data .= '<h3> Data Preview </h3>';
+            if(!($_GET['showhtmldata']=='1')){
+                $href = $_SERVER['REQUEST_URI'];
+                $symbol = "&";
+                if(strpos($href, "?") === false){
+                    $symbol = "?";
+                }
+                $href .= $symbol . "showhtmldata=1";
+                $data .= "<a href='{$href}'><button> Data Preview </button></a>";
+            }
+            echo $data;
+            
             if($_GET['showhtmldata']=='1')
             {
-
                 $this->drawHTMLTable($this->sql);    
             }
+            
             
             die;
         }
