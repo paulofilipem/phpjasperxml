@@ -1320,6 +1320,9 @@ public function analyse_dsexpression($data=[],$txt=''){
         }
         else
         {                
+            if(!$query){
+                return false;
+            }
             $stmt= $query->fetch(PDO::FETCH_ASSOC);        
             return $stmt;
         }
