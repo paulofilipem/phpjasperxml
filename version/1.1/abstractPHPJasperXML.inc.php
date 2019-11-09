@@ -54,7 +54,7 @@ class abstractPHPJasperXML
             $this->chartobj->cndriver=$this->cndriver;                   
             
             
-            if($cndriver=="mysql" ||  $cndriver=="mysqli") 
+            if($cndriver=="mysqli") 
             {
 
                 if(!$this->con) {
@@ -823,7 +823,7 @@ class abstractPHPJasperXML
             }
         }
         protected function disconnect($cndriver="mysql") {
-            if($cndriver=="mysql" || $cndriver=="mysqli") {
+            if($cndriver=="mysqli") {
                 if($this->con) {
                     if(@mysqli_close($this->myconn)) {
                         $this->con = false;
@@ -1037,7 +1037,7 @@ public function analyse_dsexpression($data=[],$txt=''){
     public function dbQuery($sql='')
     {
         
-        if($this->cndriver=="mysql" || $this->cndriver=="mysqli")
+        if($this->cndriver=="mysqli")
         {
 
             $a=$this->myconn->query("set names 'utf8'");            
@@ -1305,7 +1305,7 @@ public function analyse_dsexpression($data=[],$txt=''){
 
     public function dbFetchData($query='',$option='')
     {
-        if($this->cndriver=="mysql" || $this->cndriver=="mysqli")
+        if($this->cndriver=="mysqli")
         {
            return mysqli_fetch_array($query,MYSQLI_ASSOC);
         }
