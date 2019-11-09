@@ -5,6 +5,7 @@ class PHPJasperXMLElement extends abstractPHPJasperXML
 {
     private $defaultfont='helvetica';
     private $defaultfontsize = 10;
+    private $fontsizescale = 0.9; // Equals = 90%
 	public function __construct()
 	{
 
@@ -19,7 +20,7 @@ class PHPJasperXMLElement extends abstractPHPJasperXML
         $align="L";
         $fill=0;
         $border=0;
-        $fontsize=$this->defaultfontsize;
+        $fontsize=$this->defaultfontsize * $this->fontsizescale;
         $font=$this->defaultfont;
         $fontstyle="";
         $textcolor = array("r"=>0,"g"=>0,"b"=>0);
@@ -82,7 +83,7 @@ class PHPJasperXMLElement extends abstractPHPJasperXML
             $pdffont=(string)$data->textElement->font["pdfFontName"];
         }
         if(isset($data->textElement->font["size"])) {
-            $fontsize=$data->textElement->font["size"];
+            $fontsize=$data->textElement->font["size"] * $this->fontsizescale;
         }
         if(isset($data->textElement->font["isBold"])&&$data->textElement->font["isBold"]=="true") {
             $fontstyle=$fontstyle."B";
@@ -271,9 +272,7 @@ class PHPJasperXMLElement extends abstractPHPJasperXML
     
     public function element_break($data) 
     {
-        $mydata=[];
-        $mydata[]=array("type"=>"break","hidden_type"=>"break","elementid"=>$this->elementid);
-        return $mydata;        
+        return array("type"=>"break","hidden_type"=>"break","elementid"=>$this->elementid);                
     }
 
     public function element_crossTab($data,$elementid){
@@ -518,7 +517,7 @@ class PHPJasperXMLElement extends abstractPHPJasperXML
         $align="L";
         $fill=0;
         $border=0;
-        $fontsize=10;
+        $fontsize=10 * $this->fontsizescale;
         $font="helvetica";
         $rotation="";
         $fontstyle="";
@@ -584,7 +583,7 @@ class PHPJasperXMLElement extends abstractPHPJasperXML
             $pdffont=(string)$data->textElement->font["pdfFontName"];
         }
         if(isset($data->textElement->font["size"])) {
-            $fontsize=(string)$data->textElement->font["size"];
+            $fontsize=(string)$data->textElement->font["size"] * $this->fontsizescale;
         }
         if(isset($data->textElement->font["isBold"])&&$data->textElement->font["isBold"]=="true") {
             $fontstyle=$fontstyle."B";
