@@ -821,6 +821,12 @@ class abstractPHPJasperXML
                     $this->sql = str_replace('$P{'.$v.'}', $a, $this->sql);
                 }
             }
+            
+            //Replace unused params to NULL 
+            $matchesparameter=$this->pregMatch('$P{','}',$this->sql);
+            foreach($matchesparameter[0] as $param){
+                $this->sql = str_replace($param, "NULL", $this->sql);
+            }
         }
         protected function disconnect($cndriver="mysql") {
             if($cndriver=="mysqli") {
