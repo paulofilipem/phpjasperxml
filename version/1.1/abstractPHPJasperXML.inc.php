@@ -817,7 +817,11 @@ class abstractPHPJasperXML
             $this->sql =$xml_path;
 
             if(isset($this->arrayParameter)) {   
-                foreach($this->arrayParameter as  $v => $a) {              
+                foreach($this->arrayParameter as  $v => $a) {       
+                    if(!$this->isNumber($a))
+                    {
+                        $a='"'.$a.'"';
+                    }
                     $this->sql = str_replace('$P{'.$v.'}', $a, $this->sql);
                 }
             }
