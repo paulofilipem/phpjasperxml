@@ -108,7 +108,7 @@ class abstractPHPJasperXML
             {
                 if(!$this->con) {
                     try {
-                        $this->myconn = new PDO ($cndriver.":host=$db_host;dbname=$dbname",$db_user,$db_pass);
+                        $this->myconn = new PDO ($cndriver.":host=$db_host;dbname=$dbname;charset=utf8",$db_user,$db_pass);
                         } catch (PDOException $e) {
                         echo "Failed to get DB handle: " . $e->getMessage() . "\n";
                         exit;
@@ -2736,6 +2736,10 @@ protected function convertDigit($digit=0)
 
        protected function isNumber($value)
        {
+          if(is_int($value)){
+             return true;
+          }
+ 
           if(is_numeric($value))
           {
             // ^(^\d\.\d+|^([0-9]|[1-9][0-9]*)$|^\d$|[1-9].*?|^0+$)$
