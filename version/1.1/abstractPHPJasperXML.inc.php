@@ -2638,11 +2638,11 @@ protected function convertDigit($digit=0)
             return number_format($txt,8,".",",");
         elseif($pattern=="###0.00000")
             return number_format($txt,5,".","");        
-        elseif($pattern=="dd/MM/yyyy" && $txt !="")
+        elseif(($pattern=="dd/MM/yyyy" || $pattern == 'd/M/yy') && $txt !="")
             return date("d/m/Y",strtotime($txt));
-        elseif($pattern=="MM/dd/yyyy" && $txt !="")
+        elseif(($pattern=="MM/dd/yyyy" || $pattern == 'M/d/yy') && $txt !="")
             return date("m/d/Y",strtotime($txt));
-        elseif($pattern=="yyyy/MM/dd" && $txt !="")
+        elseif(($pattern=="yyyy/MM/dd" || $pattern=="yy/M/d") && $txt !="")
             return date("Y/m/d",strtotime($txt));
         elseif($pattern=="dd-MMM-yy" && $txt !="")
             return date("d-M-Y",strtotime($txt));
